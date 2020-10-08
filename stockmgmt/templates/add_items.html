@@ -1,14 +1,22 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>{{title}}</title>
 </head>
 <body>
-	<form method='POST' action=''>
+	{% block content %}
+	<div class="form-group">
+
+	<form method='POST'>
 		{% csrf_token %}
-		{{form}}
-        <input type="submit" value='Save'/>
+		{{form.as_p}}
+		<br><br>
+		<button type="submit" class="btn btn-dark">Submit</button>
     </form>
+</div>
+    {% endblock %}
 
 </body>
 </html>
