@@ -1,5 +1,6 @@
-{% load static %}
+{% extends 'base.html' %}
 
+{% load static %}
 
 <!DOCTYPE html>
 <html>
@@ -7,13 +8,45 @@
 	<title>Item List</title>
 	<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
 </head>
-<body>
-	{{title}}<br>
-	{% for instance in queryset %}
-	{{instance.item_name}}, {{instance.quantity}}<br>
 
-	{% endfor %}
-	
+
+<body>
+	{% block content %}
+	<h1 class="display-4">{{title}}</h1>
+	<br>
+	<center>
+	<form method='POST'>
+		{% csrf_token %}
+    	{{form}}
+        <input type="submit" value='Search'/>
+	</form>
+	</center>
+			<br>
+			<div class="shadow-lg mb-5 bg-white rounded">
+			<table class="table table-striped table-dark">
+		  <thead>
+		    <tr>
+		      <th scope="col">COUNT</th>
+		      <th scope="col">CATEGORY</th>
+		      <th scope="col">ITEM NAME</th>
+		      <th scope="col">QUANTITY IN STORE</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for instance in queryset %}
+		    <tr>
+		      <th scope="row">{{forloop.counter}}</th>
+		      <td>{{instance.category}}</td>
+		      <td>{{instance.item_name}}</td>
+		      <td>{{instance.quantity}}</td>
+		      {% endfor %}
+
+		  </tbody>
+		</table>
+		</div>
+
+
+     {% endblock %}
 
 </body>
 </html>
